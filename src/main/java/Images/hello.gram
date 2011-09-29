@@ -1,0 +1,13 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for Hello World example
+ */
+
+grammar hello;
+
+public <greet> = (Mirage) ( Play | Stop) (The | Some | A) (Music | Song);
+public <flow> = (Mirage) (Next | Previous) (Song);
+public <Time> = (Mirage) (What) (Time) (Is) (It) (Confirm);
+public <SongName> = (Mirage) (What) (Song) (Is) (This);
+public <volume2> = (Mirage) (Low | Medium | High) (Volume) (Confirm);
