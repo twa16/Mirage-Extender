@@ -4,8 +4,10 @@
  */
 package Security;
 
-import StartUp.Main;
-import com.manuwebdev.Encryption.SharedKey.SharedDecrypter;
+
+import Startup.Main;
+import com.manuwebdev.mirageobjectlibrary.Authentication.LoginAttempt;
+import com.manuwebdev.mirageobjectlibrary.Authentication.User;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -29,7 +31,7 @@ public class AuthenticationServerInterface {
     
     public static boolean checkLogin(String user, String password) {
         try {
-            Socket clientSocket = new Socket(Main.HOUSE_SERVER, PORT);
+            Socket clientSocket = new Socket(Main.getServer(), PORT);
             
             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -47,35 +49,5 @@ public class AuthenticationServerInterface {
         return false;
     }
 
-    public static String getFacebookKey(String user){
-        try {
-            SharedDecrypter d = new SharedDecrypter();
-            final String KEY = "113_171_50_8_144_184_188_195_117_41_156_104_30_54_169_4_61_190_149_62_73_35_42_6_1";
-
-            Socket clientSocket = new Socket(Main.HOUSE_SERVER, PORT);
-            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-            
-            outToServer.writeBytes(FBKEY+'\n');
-            System.out.println("Request Sent");
-            inFromServer.readLine();
-            System.out.println("ACK Received");           
-            outToServer.writeBytes(user+'\n');
-            System.out.println("Sent Details");
-            System.out.println("Waiting for response");
-            String encryptedKey=inFromServer.readLine();
-
-            System.out.println("Decrypting");
-            //return d.decrypt(encryptedKey, KEY);
-            //return encryptedKey.split(":")[1];
-            return encryptedKey;
-
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(AuthenticationServerInterface.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AuthenticationServerInterface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "User Does Not Exist";
-    }
+    
 }

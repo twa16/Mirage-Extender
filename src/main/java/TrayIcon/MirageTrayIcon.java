@@ -36,7 +36,8 @@ public class MirageTrayIcon {
             ActionListener LoginListener = new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    LogIn.main();
+                    //LogIn.main();
+                    
                 }
             };
 
