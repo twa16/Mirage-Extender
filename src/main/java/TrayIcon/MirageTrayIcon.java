@@ -1,9 +1,10 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package TrayIcon;
 
+import Security.MirageSecurityManager;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
@@ -20,8 +21,10 @@ import java.net.URL;
  * @author manuel
  */
 public class MirageTrayIcon {
-    public MirageTrayIcon(){
-        
+    MirageSecurityManager msm;
+    public MirageTrayIcon(MirageSecurityManager msm){
+        this.msm=msm;
+        init();
     }
     
     private static TrayIcon trayIcon = null;

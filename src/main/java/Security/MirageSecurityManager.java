@@ -10,7 +10,7 @@ import com.manuwebdev.mirageobjectlibrary.Authentication.User;
  *
  * @author manuel
  */
-public class SecurityManager {
+public class MirageSecurityManager {
     private User user;
     private String token;
     private void setUser(User u){

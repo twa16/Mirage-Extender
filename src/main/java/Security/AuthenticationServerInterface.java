@@ -7,7 +7,7 @@ package Security;
 
 import Startup.Main;
 import com.manuwebdev.mirageobjectlibrary.Authentication.LoginAttempt;
-import com.manuwebdev.mirageobjectlibrary.Authentication.User;
+import com.manuwebdev.mirageobjectlibrary.Configuration.Client;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -27,12 +27,26 @@ public class AuthenticationServerInterface {
     final static String ACK="ACK";
     final static String AUTHORIZATION="CHECK AUTHORIZATION";
     final static String FBKEY="GET FACEBOOK KEY";
-    static final int PORT=7263;
+    static final int PORT=5700;
+    Socket clientSocket;
+    Client c;
+    MirageSecurityManager sec;
     
-    public static boolean checkLogin(String user, String password) {
+    public AuthenticationServerInterface(MirageSecurityManager sc,String server){
+        sec=sc;
         try {
-            Socket clientSocket = new Socket(Main.getServer(), PORT);
+            System.out.println("Attempting Conenction to:"+server);
+            clientSocket = new Socket(server, PORT);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(AuthenticationServerInterface.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AuthenticationServerInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public boolean checkLogin(String user, String password) {
+        try {
             
+            System.out.println("Checking login for: "+user);
             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
@@ -40,7 +54,21 @@ public class AuthenticationServerInterface {
             ObjectInputStream ois=new ObjectInputStream(clientSocket.getInputStream());
             
             LoginAttempt la=new LoginAttempt(user, password);
-            oos.writeObject(ois);
+            oos.writeObject(la);
+            try {
+                Object o = ois.readObject();
+                System.out.println("Response Recieved.");
+                if(o != null){
+                    c=(Client) o;
+                    sec.login(c.getUserObject());
+                    return true;
+                }
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AuthenticationServerInterface.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
         } catch (UnknownHostException ex) {
             Logger.getLogger(AuthenticationServerInterface.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
