@@ -19,7 +19,7 @@ import javax.swing.JFrame;
  * @author Manuel Gauto
  */
 public class StatusGUI extends javax.swing.JFrame {
-
+    
     /** Creates new form StatusGUI */
     public StatusGUI() {
         initComponents();
@@ -106,7 +106,7 @@ public class StatusGUI extends javax.swing.JFrame {
 
     private void PostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostActionPerformed
 
-        FacebookInterface.PostStatus(gui.Status.getText());
+        //FacebookInterface.PostStatus(gui.Status.getText());
         StatusGUI.Status.setText("POSTED");
 
         StatusGUI.gui.setVisible(false);
@@ -124,7 +124,7 @@ public class StatusGUI extends javax.swing.JFrame {
                 gui = new StatusGUI();
                 gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 gui.setVisible(true);
-                gui.LoggedIn.setText(FacebookInterface.whoami());
+                //gui.LoggedIn.setText(FacebookInterface.whoami());
             }
         });
     }

@@ -4,9 +4,10 @@
  */
 package Startup;
 
+import Facebook.FacebookInterface;
 import Security.AuthenticationServerInterface;
-import Security.LogIn;
 import Security.MirageSecurityManager;
+import TrayIcon.MirageTrayIcon;
 
 /**
  *
@@ -15,12 +16,15 @@ import Security.MirageSecurityManager;
 public class Main {
     private static String Server;
     public static void main(String[] args){
-        Server=args[0];
-        MirageSecurityManager sc=new MirageSecurityManager();
-        AuthenticationServerInterface AuthenticationInterface=new AuthenticationServerInterface(sc,Server);
-        LogIn l=new LogIn(AuthenticationInterface,sc);
-        l.setVisible(true);
-        
+        if(args.length>0)Server=args[0];
+        else{
+            Server="localhost";
+        }
+        FacebookInterface fb=new FacebookInterface();
+        MirageSecurityManager msm=new MirageSecurityManager(fb);
+        AuthenticationServerInterface AuthenticationInterface=new AuthenticationServerInterface(msm,Server);
+        MirageTrayIcon mti=new MirageTrayIcon(msm,AuthenticationInterface);
+        mti.init();
     }
     public static String getServer(){
         return Server;

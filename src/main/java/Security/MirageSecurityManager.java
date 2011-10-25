@@ -4,6 +4,7 @@
  */
 package Security;
 
+import Facebook.FacebookInterface;
 import com.manuwebdev.mirageobjectlibrary.Authentication.User;
 
 /**
@@ -13,6 +14,12 @@ import com.manuwebdev.mirageobjectlibrary.Authentication.User;
 public class MirageSecurityManager {
     private User user;
     private String token;
+    private FacebookInterface fb;
+    
+    public MirageSecurityManager(FacebookInterface fb){
+        this.fb=fb;
+    }
+    
     private void setUser(User u){
         user=u;
     }

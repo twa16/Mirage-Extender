@@ -19,22 +19,34 @@ public class FacebookInterface {
     String key;
     public static FacebookClient facebookClient;
     
+    public FacebookInterface(){
+        //Default
+    }
+    
+    public void setToken(String token){
+        key=token;
+    }
+    
     public FacebookInterface(String Token){
         key=Token;
         init(Token);
     }
     
-    public static String whoami() {
+    public String whoami() {
         User user = facebookClient.fetchObject("me", User.class);
         System.out.println("\n\nI am: " + user.getName());
         return user.getName();
     }
 
-    private static void init(String token){
+    public User getFacebookUser(){
+        User user = facebookClient.fetchObject("me", User.class);
+        return user;
+    }
+    private void init(String token){
         facebookClient = new DefaultFacebookClient(token);
     }
 
-    public static void PostStatus(String Status) {
+    public void PostStatus(String Status) {
         FacebookType publishMessageResponse = facebookClient.publish("me/feed", FacebookType.class, Parameter.with(FacebookInterface.STATUS_UPDATE, Status));
 
         System.out.println("\n\nPublished message ID: " + publishMessageResponse.getId());

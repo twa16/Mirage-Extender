@@ -4,6 +4,8 @@
  */
 package TrayIcon;
 
+import Security.AuthenticationServerInterface;
+import Security.LogIn;
 import Security.MirageSecurityManager;
 import java.awt.AWTException;
 import java.awt.Image;
@@ -22,9 +24,17 @@ import java.net.URL;
  */
 public class MirageTrayIcon {
     MirageSecurityManager msm;
-    public MirageTrayIcon(MirageSecurityManager msm){
+    AuthenticationServerInterface asi;
+    LogIn li;
+    
+    /**
+     * MirageTrayIcon makes the icon.
+     * @param msm
+     * @param a 
+     */
+    public MirageTrayIcon(MirageSecurityManager msm,AuthenticationServerInterface a){
         this.msm=msm;
-        init();
+        this.asi=a;
     }
     
     private static TrayIcon trayIcon = null;
@@ -33,7 +43,10 @@ public class MirageTrayIcon {
     /**
      * @param args the command line arguments
      */
-    public static void init() {
+    public void init() {
+        //Initilize LogIn gui
+        li=new LogIn(asi,msm);
+        
         if (SystemTray.isSupported()) {
 
             ActionListener LoginListener = new ActionListener() {
@@ -83,10 +96,10 @@ public class MirageTrayIcon {
         }
     }
 
-    public static TrayIcon getTrayIcon(){
+    public TrayIcon getTrayIcon(){
         return trayIcon;
     }
-    public static SystemTray getSystemTray(){
+    public SystemTray getSystemTray(){
         return tray;
     }
 }
