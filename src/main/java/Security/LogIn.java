@@ -12,6 +12,8 @@
 package Security;
 
 import com.manuwebdev.mirageobjectlibrary.Authentication.LoginAttempt;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -107,9 +109,14 @@ public class LogIn extends javax.swing.JFrame {
     private void LogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInButtonActionPerformed
         // TODO add your handling code here:
         //LoginAttempt la=new LoginAttempt(this.UserNameField.getText(),this.PasswordField.getPassword().toString());
-        boolean OK= inter.checkLogin(this.UserNameField.getText(),this.PasswordField.getPassword().toString());
+        boolean OK = inter.checkLogin(this.UserNameField.getText(),String.copyValueOf(this.PasswordField.getPassword()));
         if(OK==true){
             this.StatusLabel.setText("Login Sucessful.");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.dispose();
         }
         else{

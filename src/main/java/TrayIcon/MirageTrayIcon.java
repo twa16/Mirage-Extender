@@ -17,6 +17,7 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import javax.swing.JFrame;
 
 /**
  *
@@ -53,7 +54,9 @@ public class MirageTrayIcon {
 
                 public void actionPerformed(ActionEvent e) {
                     //LogIn.main();
-                    
+                    LogIn li =new LogIn(asi,msm);
+                    li.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    li.setVisible(true);
                 }
             };
 
@@ -67,8 +70,10 @@ public class MirageTrayIcon {
 
 
             tray = SystemTray.getSystemTray();
+                    
             URL url = MirageTrayIcon.class.getResource("/Images/G.jpg");
             Image image = Toolkit.getDefaultToolkit().getImage(url);
+            
             PopupMenu popup = new PopupMenu();
 
             MenuItem LogInItem = new MenuItem("Login");

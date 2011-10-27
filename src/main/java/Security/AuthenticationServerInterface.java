@@ -47,21 +47,27 @@ public class AuthenticationServerInterface {
         try {
             
             System.out.println("Checking login for: "+user);
-            DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            ObjectOutputStream oos=new ObjectOutputStream(outToServer);
+            ObjectOutputStream oos=new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream ois=new ObjectInputStream(clientSocket.getInputStream());
             
             LoginAttempt la=new LoginAttempt(user, password);
+            System.out.println(la.getHash()+"\n"+la.getUsername()+password+la.getTimeStamp());
             oos.writeObject(la);
+            
             try {
                 Object o = ois.readObject();
+                //System.err.println(o.getClass());
                 System.out.println("Response Recieved.");
-                if(o != null){
+                if(o ==null){
+                    return false;
+                }
+                else{
+                    System.out.println("Client Object is here.");
                     c=(Client) o;
                     sec.login(c.getUserObject());
                     return true;
+                    
                 }
                 
             } catch (ClassNotFoundException ex) {
