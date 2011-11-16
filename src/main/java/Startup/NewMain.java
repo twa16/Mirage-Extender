@@ -18,6 +18,6 @@ public class NewMain {
     public static void main(String[] args) {
         FacebookInterface fb=new FacebookInterface("AAACx4m11Mv4BAOlxeJECgGNcVjHlaVr2PCU7i5iNZC0jdDCeZBNhPRYPbrLAn7X8R3EJz7H73MZCpP9qn3Gvjsif5SXe8UZD");
         fb.whoami();
-        
+        fb.PostStatus("ew PVI");
     }
 }
