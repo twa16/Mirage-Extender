@@ -25,7 +25,7 @@ import javax.swing.JFrame;
  */
 public class MirageTrayIcon {
     MirageSecurityManager msm;
-    AuthenticationServerInterface asi;
+//    AuthenticationServerInterface asi;
     LogIn li;
     
     /**
@@ -33,9 +33,9 @@ public class MirageTrayIcon {
      * @param msm
      * @param a 
      */
-    public MirageTrayIcon(MirageSecurityManager msm,AuthenticationServerInterface a){
+    public MirageTrayIcon(MirageSecurityManager msm){
         this.msm=msm;
-        this.asi=a;
+        //this.asi=a;
     }
     
     private static TrayIcon trayIcon = null;
@@ -46,7 +46,7 @@ public class MirageTrayIcon {
      */
     public void init() {
         //Initilize LogIn gui
-        li=new LogIn(asi,msm);
+        
         
         if (SystemTray.isSupported()) {
 
@@ -54,9 +54,7 @@ public class MirageTrayIcon {
 
                 public void actionPerformed(ActionEvent e) {
                     //LogIn.main();
-                    LogIn li =new LogIn(asi,msm);
-                    li.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    li.setVisible(true);
+                    msm.createLoginDialog();
                 }
             };
 
@@ -107,4 +105,5 @@ public class MirageTrayIcon {
     public SystemTray getSystemTray(){
         return tray;
     }
+
 }

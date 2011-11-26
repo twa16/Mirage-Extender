@@ -21,9 +21,9 @@ public class Main {
             Server="localhost";
         }
         FacebookInterface fb=new FacebookInterface();
-        MirageSecurityManager msm=new MirageSecurityManager(fb);
-        AuthenticationServerInterface AuthenticationInterface=new AuthenticationServerInterface(msm,Server);
-        MirageTrayIcon mti=new MirageTrayIcon(msm,AuthenticationInterface);
+        AuthenticationServerInterface AuthenticationInterface=new AuthenticationServerInterface(Server);
+        MirageSecurityManager msm=new MirageSecurityManager(fb,AuthenticationInterface);
+        MirageTrayIcon mti=new MirageTrayIcon(msm);
         mti.init();
     }
     public static String getServer(){

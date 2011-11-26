@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Security;
+package MirageSecurity;
 
 
+import Security.*;
 import Startup.Main;
 import com.manuwebdev.mirageobjectlibrary.Authentication.LoginAttempt;
 import com.manuwebdev.mirageobjectlibrary.Configuration.Client;

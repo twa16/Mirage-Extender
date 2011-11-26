@@ -11,7 +11,8 @@
 
 package Security;
 
-import com.manuwebdev.mirageobjectlibrary.Authentication.LoginAttempt;
+import TrayIcon.MirageTrayIcon;
+import TrayIcon.TrayIconActions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,13 +24,12 @@ import java.util.logging.Logger;
  */
 public class LogIn extends javax.swing.JFrame {
     AuthenticationServerInterface inter;
-    MirageSecurityManager msm;
+    MirageTrayIcon mti;
     
     /** Creates new form LogOut */
-    public LogIn(AuthenticationServerInterface in, MirageSecurityManager sec) {
+    public LogIn(AuthenticationServerInterface in) {
         initComponents();
         inter=in;
-        msm=sec;
     }
 
     /** This method is called from within the constructor to
