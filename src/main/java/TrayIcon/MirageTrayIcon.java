@@ -4,8 +4,6 @@
  */
 package TrayIcon;
 
-import Security.AuthenticationServerInterface;
-import Security.LogIn;
 import Security.MirageSecurityManager;
 import java.awt.AWTException;
 import java.awt.Image;
@@ -17,16 +15,15 @@ import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import javax.swing.JFrame;
 
 /**
  *
  * @author manuel
  */
 public class MirageTrayIcon {
-    MirageSecurityManager msm;
+    private MirageSecurityManager msm;
 //    AuthenticationServerInterface asi;
-    LogIn li;
+    private PopupMenu popup; //Popup menu from system tray
     
     /**
      * MirageTrayIcon makes the icon.
@@ -54,7 +51,12 @@ public class MirageTrayIcon {
 
                 public void actionPerformed(ActionEvent e) {
                     //LogIn.main();
-                    msm.createLoginDialog();
+                    if(msm.promptForLogin()){
+                        transform();
+                    }
+                    else{
+                        getTrayIcon().displayMessage("Login Failure", "Invalid Login Information Was Entered", TrayIcon.MessageType.ERROR);
+                    }
                 }
             };
 
@@ -72,7 +74,8 @@ public class MirageTrayIcon {
             URL url = MirageTrayIcon.class.getResource("/Images/G.jpg");
             Image image = Toolkit.getDefaultToolkit().getImage(url);
             
-            PopupMenu popup = new PopupMenu();
+            popup= new PopupMenu();
+            
 
             MenuItem LogInItem = new MenuItem("Login");
             LogInItem.addActionListener(LoginListener);
@@ -104,6 +107,10 @@ public class MirageTrayIcon {
     }
     public SystemTray getSystemTray(){
         return tray;
+    }
+    
+    public void transform(){
+        popup.removeAll();
     }
 
 }

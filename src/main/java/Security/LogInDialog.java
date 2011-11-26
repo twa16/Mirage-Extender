@@ -11,6 +11,7 @@
 
 package Security;
 
+import Startup.Main;
 import TrayIcon.MirageTrayIcon;
 import TrayIcon.TrayIconActions;
 import java.util.logging.Level;
@@ -22,12 +23,15 @@ import java.util.logging.Logger;
  *
  * @author Jose Gauto
  */
-public class LogIn extends javax.swing.JFrame {
-    AuthenticationServerInterface inter;
-    MirageTrayIcon mti;
+public class LogInDialog extends javax.swing.JFrame {
+    private AuthenticationServerInterface inter;
+    private MirageTrayIcon mti;
+    private boolean ready=false;
+    private boolean loginvalid=false;
+    
     
     /** Creates new form LogOut */
-    public LogIn(AuthenticationServerInterface in) {
+    public LogInDialog(AuthenticationServerInterface in ) {
         initComponents();
         inter=in;
     }
@@ -113,11 +117,14 @@ public class LogIn extends javax.swing.JFrame {
         if(OK==true){
             this.StatusLabel.setText("Login Sucessful.");
             try {
-                Thread.sleep(500);
+                Thread.sleep(1500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogInDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
+            loginvalid=true;
+            ready=true;
             this.dispose();
+            
         }
         else{
             System.err.println("Login Failed.");
@@ -125,6 +132,13 @@ public class LogIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_LogInButtonActionPerformed
 
+    public boolean isReady(){
+        return ready;
+    }
+    
+    public boolean isLoginValid(){
+        return loginvalid;
+    }
     /**
     * @param args the command line arguments
     */

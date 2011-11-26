@@ -19,9 +19,11 @@ public class MirageSecurityManager {
     private String token;
     private FacebookInterface fb;
     private AuthenticationServerInterface asi;
+    private LogInDialog li;
 
     public MirageSecurityManager(FacebookInterface fb, AuthenticationServerInterface asi) {
         this.fb = fb;
+        this.asi=asi;
     }
 
     private void setUser(User u) {
@@ -62,11 +64,13 @@ public class MirageSecurityManager {
         setToken(u.getFacebookToken());
         
     }
-
-    public void createLoginDialog() {
-        LogIn li = new LogIn(asi);
-        li.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    
+    public boolean promptForLogin(){
         li.setVisible(true);
-
+        while(true){
+            if(li.isReady()){
+                return li.isLoginValid();
+            }
+        }
     }
 }

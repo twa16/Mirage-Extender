@@ -15,6 +15,7 @@ import TrayIcon.MirageTrayIcon;
  */
 public class Main {
     private static String Server;
+    private static MirageTrayIcon mti;
     public static void main(String[] args){
         if(args.length>0)Server=args[0];
         else{
@@ -23,7 +24,7 @@ public class Main {
         FacebookInterface fb=new FacebookInterface();
         AuthenticationServerInterface AuthenticationInterface=new AuthenticationServerInterface(Server);
         MirageSecurityManager msm=new MirageSecurityManager(fb,AuthenticationInterface);
-        MirageTrayIcon mti=new MirageTrayIcon(msm);
+        mti=new MirageTrayIcon(msm);
         mti.init();
     }
     public static String getServer(){
